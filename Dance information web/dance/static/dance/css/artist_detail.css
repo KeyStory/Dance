@@ -1,0 +1,207 @@
+/* 日历和表演信息部分 */
+.calendar-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    display: flex;
+    gap: 2rem;  /* 日历之间的间距 */
+    justify-content: center;
+    flex-wrap: wrap;  /* 在小屏幕上自动换行 */
+}
+
+.calendar-container {
+    width: 45%;  /* 调整每个日历的宽度 */
+    min-width: 300px;  /* 确保最小宽度 */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: #666;
+}
+
+.calendar-nav-btn:hover {
+    color: #333;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 10px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    padding: 10px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #eee;
+    padding: 5px;
+    position: relative;
+}
+
+.calendar-day.has-performance {
+    background-color: #f0f7ff;
+    cursor: pointer;
+    border: 1px solid #cce5ff;
+}
+
+.calendar-day.has-performance:hover {
+    background-color: #e6f3ff;
+}
+
+.calendar-day.today {
+    border: 2px solid #007bff;
+}
+
+.calendar-day.other-month {
+    color: #ccc;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.btn-close-training {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.performance-info {
+    padding: 20px;
+}
+
+.info-row {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.info-label {
+    width: 120px;
+    font-weight: 600;
+    color: #666;
+}
+
+.info-value {
+    flex: 1;
+    color: #333;
+}
+
+.attendance-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.select-field {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.btn-update-attendance {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-update-attendance:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .calendar-grid {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,4 @@
+https://www.techtarget.com/searchsoftwarequality/definition/waterfall-model
+https://www.boardinfinity.com/blog/a-quick-guide-to-arrays-in-python/
+https://www.usemotion.com/blog/waterfall-model
+https://data-flair.training/blogs/django-mtv-architecture/

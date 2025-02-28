@@ -1,0 +1,233 @@
+.auth-form {
+    max-width: 400px;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1F2937;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* 表单元素 */
+.form-group {
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #4B5563;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.5rem;
+    background-color: #F9FAFB;
+    color: #1F2937;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* Error Handling */
+.error-container {
+    min-height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: #EF4444;
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+    line-height: 1;
+    min-height: 1rem;
+    visibility: hidden;
+    padding: 0.25rem 0;
+}
+
+.form-group.error .error-message {
+    visibility: visible;
+}
+
+.form-group.error input {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+/* Auth Button */
+.auth-button {
+    width: 100%;
+    padding: 0.625rem;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    transition: background-color 0.2s;
+}
+
+.auth-button:hover {
+    background-color: #1D4ED8;
+}
+
+/* Links Section */
+.links-container {
+    margin-top: 1.5rem;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #E5E7EB;
+}
+
+.links-container p {
+    margin-bottom: 0.5rem;
+    color: #4B5563;
+    font-size: 0.875rem;
+}
+
+.links-container a {
+    color: #2563EB;
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    display: inline-block;
+}
+
+.links-container a:hover {
+    color: #1D4ED8;
+}
+
+.links-container a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -1px;
+    left: 0;
+    background-color: #2563EB;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.links-container a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Password Field */
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    color: #6B7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #374151;
+}
+
+/* Remember Me Checkbox */
+.remember-me {
+    margin: 1rem 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    color: #4B5563;
+    font-size: 0.875rem;
+}
+
+/* Custom Scrollbar */
+.auth-form::-webkit-scrollbar {
+    width: 6px;
+}
+
+.auth-form::-webkit-scrollbar-track {
+    background: #F9FAFB;
+}
+
+.auth-form::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 3px;
+}
+
+.auth-form::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+}
+
+/* Date Group for Signup */
+.date-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.date-group select {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (min-height: 800px) {
+    .auth-form {
+        margin: 2rem auto;
+    }
+}
+
+@media (max-height: 600px) {
+    .auth-form {
+        margin: 0.5rem auto;
+        padding: 1rem;
+    }
+    
+    .auth-title {
+        margin-bottom: 0.75rem;
+    }
+}

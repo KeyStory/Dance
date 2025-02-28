@@ -1,0 +1,67 @@
+.participants-section {
+    margin-top: 30px;
+    display: inline;
+}
+
+.participants-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.artists-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.artists-table th {
+    background-color: #f3f4f6;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.artists-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.action {
+    min-width: 120px;
+}
+
+.btn-add {
+    background-color: #10b981;
+    color: white;
+}
+
+.btn-add:hover {
+    background-color: #10aa77;
+}
+
+.form-control {
+    width: 60%;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #374151;
+    background-color: #fff;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    transition: border-color 0.2s;
+}
+
+/* 移除数字输入框的箭头 */
+.form-control[type="number"] {
+    appearance: textfield;
+}
+
+.form-control[type="number"]::-webkit-inner-spin-button,
+.form-control[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}

@@ -1,0 +1,231 @@
+{% extends "dance/layout.html" %}
+{% block title %}
+Performance Detail
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/info_detail.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/performance_detail.css' %}"/>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header-buttons">
+        <a href="{% url 'performances' %}" class="btn btn-back">Back</a>
+        {% if not edit_mode and request.user.job == 'director' %}
+        <a href="?edit=true" class="btn btn-edit">Edit</a>
+        {% elif edit_mode %}
+        <a href="{% url 'performance_detail' performance.performance_id %}" class="btn-header btn-exit">Exit Edit</a>
+        {% endif %}
+    </div>
+
+    <form id="performance_detail_form" method="POST" action="{% url 'performance_detail' performance.performance_id %}">
+        {% csrf_token %}
+        {% autoescape on %}
+        <input type="hidden" name="participants_ids" id="participants_ids">
+        <div class="info-grid">
+            <div class="info-item span-two-columns">
+                <div class="info-label">Performance Title:</div>
+                {% if edit_mode %}
+                    <input type="text" name="title" value="{{ performance.title }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ performance.title }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Performance Date:</div>
+                {% if edit_mode %}
+                    <input type="date" name="date" value="{{ performance.performance_date|date:'Y-m-d' }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ performance.performance_date|date:"M j Y" }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <label class="info-label">Status:</label>
+                {% if edit_mode %}
+                    <select name="status" class="input-field">
+                        <option value="Completed" {% if performance.status == 'Completed' %}selected{% endif %}>Completed</option>
+                        <option value="Cancelled" {% if performance.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                        <option value="Other" {% if performance.status == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                {% else %}
+                    <p class="info-value">{{ performance.status }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Start Time:</div>
+                {% if edit_mode %}
+                    <input type="time" name="start_time" value="{{ performance.start_time|time:'H:i' }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ performance.start_time }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <label class="info-label">End Time:</label>
+                {% if edit_mode %}
+                    <input type="time" name="end_time" value="{{ performance.end_time|time:'H:i' }}" class="input-field">
+                {% else %}
+                    <p class="info-value">{{ performance.end_time }}</p>
+                {% endif %}
+            </div>
+
+            <div class="info-item span-two-columns">
+                <label class="info-label">Venue:</label>
+                {% if edit_mode %}
+                    <input type="text" name="venue" value="{{ performance.venue }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ performance.venue }}</div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="participants-section">
+            <div class="participants-header">
+                <h2>Participants</h2>
+                <span>Number of participants: {{ participants|length }}</span>
+            </div>
+
+            <table id="participants_table" class="artists-table">
+                <thead>
+                    <tr>
+                        <th>Artist ID</th>
+                        <th>Artist Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        {% if edit_mode %}
+                        <th class="action">Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participant in participants %}
+                    <tr>
+                        <td>{{ participant.artist_id }}</td>
+                        <td>{{ participant.name }}</td>
+                        <td>{{ participant.age }}</td>
+                        <td>{{ participant.gender }}</td>
+                        <td>{{ participant.phone }}</td>
+                        {% if edit_mode %}
+                        <td>
+                            <a class="btn btn-cancel btn-remove">Remove</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if edit_mode %}
+            <h2>Available Artists</h2>
+            <table id="artists_table" class="artists-table">
+                <thead>
+                    <tr>
+                        <th>Artist ID</th>
+                        <th>Artist Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        {% if edit_mode %}
+                        <th class="action">Actions</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for artist in available_artists %}
+                    <tr>
+                        <td>{{ artist.artist_id }}</td>
+                        <td>{{ artist.name }}</td>
+                        <td>{{ artist.age }}</td>
+                        <td>{{ artist.gender }}</td>
+                        <td>{{ artist.phone }}</td>
+                        <td>
+                            <a class="btn btn-add">Add</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+
+        {% if edit_mode %}
+        <div class="edit-buttons">
+            <button type="submit" class="btn btn-save">Save</button>
+            <a href="{% url 'performance_detail' performance.performance_id %}" class="btn btn-cancel">Cancel</a>
+        </div>
+        {% endif %}
+        {% endautoescape %}
+    </form>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    document.getElementById('performance_detail_form').addEventListener('submit', function(e) {
+        e.preventDefault();  // 阻止表单默认提交
+        
+        // 获取TableA中所有行的ID
+        const participants_table = document.getElementById('participants_table');
+        const rows = participants_table.querySelectorAll('tbody tr');
+        const ids = Array.from(rows).map(row => row.cells[0].textContent);
+        
+        // 将ID数组存储到隐藏输入字段中
+        document.getElementById('participants_ids').value = JSON.stringify(ids);
+        
+        // 继续提交表单
+        this.submit();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('[class="btn btn-cancel btn-remove"]').forEach(button => {
+            button.addEventListener('click', function() {
+                moveRow(this, 'artists_table');
+            });
+        });
+
+        document.querySelectorAll('[class="btn btn-add"]').forEach(button => {
+            button.addEventListener('click', function() {
+                moveRow(this, 'participants_table');
+            });
+        });
+    });
+    
+    function moveRow(button, targetTableId) {
+        // 获取当前行
+        const row = button.closest('tr');
+        
+        // 根据源表格确定目标表格和按钮文本
+        let buttonText = "";
+        let buttonTarget = "";
+        let buttonClass = "";
+        if (targetTableId == "participants_table"){
+            buttonText = 'Remove';
+            buttonTarget = "artists_table";
+            buttonClass = "btn btn-cancel"
+        }else{
+            buttonText = 'Add';
+            buttonTarget = "participants_table";
+            buttonClass = "btn btn-add"
+        }
+        
+        // 克隆行以保留所有内容和样式
+        const newRow = row.cloneNode(true);
+        
+        // 更新按钮文本和onclick事件
+        const newButton = newRow.querySelector('a');
+        newButton.textContent = buttonText;
+        newButton.className = buttonClass;
+        newButton.onclick = function() {
+            moveRow(this, buttonTarget);
+        };
+        
+        // 将行添加到目标表格
+        document.getElementById(targetTableId).querySelectorAll('tbody')[0].appendChild(newRow);
+        
+        // 从源表格删除原行
+        row.remove();
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "dance/layout.html" %}
+{% block title %}
+    Management Platform
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/dashboard.css' %}"/>
+{% endblock %}
+{% block content %}
+<div class="dashboard">
+    <header>
+        <h1>Welcome {{ user.username }}!</h1>
+    </header>
+    
+    <div class="stats-container">
+        <div class="stat-card users">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ artist_count }}</div>
+                <div class="stat-label">Artist Stats</div>
+            </div>
+        </div>
+        
+        <div class="stat-card performances">
+            <div class="stat-icon">
+                <i class="fas fa-calendar"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-date">{{ performance_count }}</div>
+                <div class="stat-label">Performance Stats</div>
+            </div>
+        </div>
+        
+        <div class="stat-card trainings">
+            <div class="stat-icon">
+                <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ training_count }}</div>
+                <div class="stat-label">Training Stats</div>
+            </div>
+        </div>
+        
+        <div class="stat-card activities">
+            <div class="stat-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">3</div>
+                <div class="stat-label">New Activities</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-content">
+        <div class="panel recent-orders">
+            <div class="panel-header">
+                <h3><i class="fas fa-clipboard-list"></i> Number of performances by all artists</h3>
+            </div>
+            <div class="panel-content">
+                <ul>
+                    {% for artist in artists_with_performance_count %}
+                    <li>
+                        <span class="task-text">{{ artist.name }}:</span>
+                        <span class="task-status">{{ artist.performance_count }} performances</span>
+                    </li>   
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="panel social-platforms">
+            <div class="panel-header">
+                <h3><i class="fas fa-dumbbell"></i> Number of trainings by all artists</h3>
+            </div>
+            <div class="panel-content">
+                <ul>
+                    {% for artist in artists_with_training_count %}
+                    <li>
+                        <span class="task-text">{{ artist.name }}:</span>
+                        <span class="task-status">{{ artist.training_count }} trainings</span>
+                    </li>   
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="panel tasks">
+            <div class="panel-header">
+                <h3><i class="fas fa-star"></i> Future Activities</h3>
+            </div>
+            <div class="panel-content">
+                <ul>
+                    <li>
+                        <span class="task-text">Dance of the Year</span>
+                        <span class="task-status">March 15</span>
+                    </li>
+                    <li>
+                        <span class="task-text">Street Dance Workshop</span>
+                        <span class="task-status">April 1</span>
+                    </li>
+                    <li>
+                        <span class="task-text">Dance troupe recruitment</span>
+                        <span class="task-status">April 20</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="panel chart">
+            <div class="panel-header">
+                <h3><i class="fas fa-chart-bar"></i> Attendance of artist for each performance</h3>
+            </div>
+            <div class="panel-content">
+                <div class="chart-placeholder">
+                    <!-- Chart would be implemented with a JavaScript library -->
+                    <div class="chart-bars">
+                        {% for artist in performances_attendance %}
+                        <div class="vertical">
+                            <div class="bar" style="--height: {{ artist.percent }}%; height:var(--height)"></div>
+                            <span>{{ artist.name }}<br>{{ artist.percent }}%</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

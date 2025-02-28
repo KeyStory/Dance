@@ -1,0 +1,126 @@
+{% extends "dance/layout.html" %}
+{% block title %}
+    User Settings
+{% endblock %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/user_settings.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Personal Settings</h1>
+    
+    <!-- 基本资料 -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-user icon"></i>
+            <h2>Basic Information</h2>
+        </div>
+        <div class="card-content">
+            <!-- 头像设置 -->
+            <div class="avatar-section">
+                <img id="userAvatar" src="{% static 'dance/pictures/default_user.jpg' %}" alt="user avatar" class="avatar">
+                <div class="avatar-upload">
+                    <button class="btn btn-primary" onclick="document.getElementById('avatarInput').click()">
+                        Change User Avatar
+                    </button>
+                    <input type="file" id="avatarInput" hidden accept="image/jpeg,image/png">
+                    <p class="hint">support jpg、png, File size smaller than 2MB</p>
+                </div>
+            </div>
+
+            <!-- 用户名 -->
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" placeholder="Please enter your username">
+            </div>
+
+            <!-- 邮箱 -->
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                    <i class="fas fa-envelope icon"></i>
+                    <input type="email" placeholder="Please enter your email address">
+                    <button class="btn btn-secondary">Verify Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 账户安全 -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-lock icon"></i>
+            <h2>Account Security</h2>
+        </div>
+        <div class="card-content">
+            <div id="passwordSection">
+                <div class="password-header">
+                    <div>
+                        <h3>Login Password</h3>
+                        <p class="hint">Changing your password regularly can protect your account security</p>
+                    </div>
+                    <button class="btn btn-secondary" id="changePasswordBtn">Change Password</button>
+                </div>
+                <form id="passwordForm" class="hidden">
+                    <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" placeholder="Please enter your current password">
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" placeholder="Please enter new password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" placeholder="Please enter your new password again">
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" id="cancelPasswordBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 个人简介 -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-map-marker-alt icon"></i>
+            <h2>Personal Profile</h2>
+        </div>
+        <div class="card-content">
+            <!-- 地区选择 -->
+            <div class="form-group">
+                <label>Location</label>
+                <div class="input-group">
+                    <select id="province">
+                        <option value="">Please select a province</option>
+                    </select>
+                    <select id="city">
+                        <option value="">Please select your city</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 个人简介 -->
+            <div class="form-group">
+                <label>Personal Decription</label>
+                <textarea id="bio" placeholder="Please enter your personal decription" maxlength="200"></textarea>
+                <p class="hint"><span id="bioCount">0</span>/200</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 保存按钮 -->
+    <div class="button-container">
+        <button class="btn btn-primary btn-large">Save settings</button>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% load static %}
+<script src="{% static 'dance/js/user_settings.js' %}"></script>
+{% endblock %}

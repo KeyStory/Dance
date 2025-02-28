@@ -1,0 +1,242 @@
+{% extends "dance/layout.html" %}
+{% block name %}
+Artist Detail
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/info_detail.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/artist_detail.css' %}"/>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header-buttons">
+        <a href="{% url 'artists_info' %}" class="btn btn-back">Back</a>
+        {% if not edit_mode %}
+        <a href="?edit=true" class="btn btn-edit">Edit</a>
+        {% elif edit_mode %}
+        <a href="{% url 'artist_detail' artist.artist_id %}" class="btn-header btn-exit">Exit Edit</a>
+        {% endif %}
+    </div>
+
+    <form id="artist_detail_form" method="POST" action="{% url 'artist_detail' artist.artist_id %}">
+        {% csrf_token %}
+        {% autoescape on %}
+        <div class="info-grid">
+            <div class="info-item span-two-columns">
+                <div class="info-label">Artist Name:</div>
+                {% if edit_mode and request.user.job == 'director' %}
+                    <input type="text" name="name" value="{{ artist.name }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ artist.name }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <div class="info-label">Date of Birth:</div>
+                {% if edit_mode and request.user.job == 'director' %}
+                    <input type="date" name="date_of_birth" value="{{ artist.date_of_birth|date:'Y-m-d' }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ artist.date_of_birth|date:"M j Y" }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <label class="info-label">Gender:</label>
+                {% if edit_mode and request.user.job == 'director' %}
+                    <select name="gender" class="input-field">
+                        <option value="Male" {% if artist.gender == 'Male' %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if artist.gender == 'Female' %}selected{% endif %}>Female</option>
+                        <option value="Other" {% if artist.gender == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                {% else %}
+                    <p class="info-value">{{ artist.gender }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                {% if edit_mode and request.user.job == 'director' %}
+                    <input type="text" name="email" value="{{ artist.email }}" class="input-field">
+                {% else %}
+                    <div class="info-value">{{ artist.email }}</div>
+                {% endif %}
+            </div>
+
+            <div class="info-item">
+                <label class="info-label">Phone:</label>
+                {% if edit_mode and request.user.job == 'director' %}
+                    <input type="text" name="phone" value="{{ artist.phone }}" class="input-field">
+                {% else %}
+                    <p class="info-value">{{ artist.phone }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <!-- 日历部分 -->
+        <div class="calendar-section" data-artist-id="{{ artist_id_json }}" data-csrf-token="{{ csrf_token }}">
+            <!-- 表演的日历-->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 style="width: 100%; text-align: center; margin-bottom: 20px;">Performances Schedule</h2>
+                </div>
+                <div class="calendar-header">
+                    <button id="prevMonth" class="calendar-nav-btn" onclick="event.preventDefault()">&lt;</button>
+                    <h2 id="currentMonth"></h2>
+                    <button id="nextMonth" class="calendar-nav-btn" onclick="event.preventDefault()">&gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                <div id="calendar" class="calendar-days"></div>
+            </div>
+            <!-- 训练的日历 -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 style="width: 100%; text-align: center; margin-bottom: 20px;">Trainings Schedule</h2>
+                </div>
+                <div class="calendar-header">
+                    <button id="prevMonthTraining" class="calendar-nav-btn">&lt;</button>
+                    <h2 id="currentMonthTraining"></h2>
+                    <button id="nextMonthTraining" class="calendar-nav-btn">&gt;</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                <div id="trainingCalendar" class="calendar-days"></div>
+            </div>
+
+            <!-- 表演信息部分 -->
+            <div id="performanceModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Performance Details</h3>
+                        <button class="btn-close" onclick="event.preventDefault()">&times;</button>
+                    </div>
+                    <div class="performance-info">
+                        <div class="info-row">
+                            <div class="info-label">Title:</div>
+                            <div id="perf-title" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Date:</div>
+                            <div id="perf-date" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Time:</div>
+                            <div id="perf-time" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Venue:</div>
+                            <div id="perf-venue" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Participants:</div>
+                            <div id="perf-participants" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Status:</div>
+                            <div id="perf-status" class="info-value"></div>
+                        </div>
+                        
+                        {% if edit_mode and request.user.job == 'director' %}
+                        <div class="attendance-section">
+                            <div class="info-row">
+                                <div class="info-label">Attendance Status:</div>
+                                <select id="attendance-status" class="select-field">
+                                    <option value="1">Attending</option>
+                                    <option value="0">Not Attending</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-update-attendance">Update Attendance</button>
+                        </div>
+                        {% else %}
+                        <div class="info-row">
+                            <div class="info-label">Attendance:</div>
+                            <div id="attendance-status-display" class="info-value"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 训练信息部分 -->
+            <div id="trainingModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Training Details</h3>
+                        <button type="button" class="btn-close-training" onclick="event.preventDefault()">&times;</button>
+                    </div>
+                    <div class="performance-info">
+                        <div class="info-row">
+                            <div class="info-label">Title:</div>
+                            <div id="training-title" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Date:</div>
+                            <div id="training-date" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Time:</div>
+                            <div id="training-time" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Venue:</div>
+                            <div id="training-venue" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Participants:</div>
+                            <div id="training-participants" class="info-value"></div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-label">Status:</div>
+                            <div id="training-status" class="info-value"></div>
+                        </div>
+                        
+                        {% if edit_mode and request.user.job == 'coach' %}
+                        <div class="attendance-section">
+                            <div class="info-row">
+                                <div class="info-label">Attendance Status:</div>
+                                <select id="training-attendance-status" class="select-field">
+                                    <option value="1">Attending</option>
+                                    <option value="0">Not Attending</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-update-attendance">Update Attendance</button>
+                        </div>
+                        {% else %}
+                        <div class="info-row">
+                            <div class="info-label">Attendance:</div>
+                            <div id="training-attendance-status-display" class="info-value"></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if edit_mode %}
+        <div class="edit-buttons">
+            <button type="submit" class="btn btn-save">Save</button>
+            <a href="{% url 'artist_detail' artist.artist_id %}" class="btn btn-cancel">Cancel</a>
+        </div>
+        {% endif %}
+        {% endautoescape %}
+    </form>
+</div>
+{% endblock %}
+{% block script %}
+{% load static %}
+<script src="{% static 'dance/js/performances_calendar.js' %}"></script>
+<script src="{% static 'dance/js/trainings_calendar.js' %}"></script>
+{% endblock %}

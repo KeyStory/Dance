@@ -1,0 +1,21 @@
+
+# reCAPTCHA 配置
+RECAPTCHA_SITE_KEY = '6LdX7t8qAAAAAAYNgcNeH-74GS1C6-VCYqLNsZ-i'  # 从 Google reCAPTCHA 管理控制台获取
+RECAPTCHA_SECRET_KEY = '6LdX7t8qAAAAAG51WBFai6uQjV0Ccyg0lxfuRxlX'  # 从 Google reCAPTCHA 管理控制台获取
+
+SESSION_COOKIE_AGE = 1209600  # 2周
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_SECURE = True  # 仅通过HTTPS发送
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
+# 邮件配置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'zheliangou@gmail.com'
+EMAIL_HOST_PASSWORD = 'pvgc faoh kblh qglu'
+DEFAULT_FROM_EMAIL = 'zheliangou@gmail.com'

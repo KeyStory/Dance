@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/home.css' %}">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="logo">Dance Management System</a>
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                    <span class="welcome-text">Welcome, {{ user.username }}</span>
+                    <a href="{% url 'app_users_logout' %}" class="logout-btn">Logout</a>
+                {% else %}
+                    <a href="{% url 'app_users_login' %}" class="login-btn">Login</a>
+                    <a href="{% url 'sign_up' %}" class="signup-btn">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面主要内容 -->
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+        <p>&copy; {% now "Y" %}</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

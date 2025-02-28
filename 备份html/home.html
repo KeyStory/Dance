@@ -1,0 +1,59 @@
+{% extends "dance/home_layout.html" %}
+{% block title %}
+    Dance Management System
+{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+    <!-- 主要区域 -->
+    <div class="main">
+        <div class="main-content">
+            <h1>Professional Dance Team Management Platform</h1>
+            <p>Efficiently manage training, members, and club activities to enhance team performance</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'management_platform' %}" class="get-started-btn">
+                    Get Started
+                </a>
+            {% else %}
+                <a href="{% url 'app_users_login' %}" class="get-started-btn">
+                    Get Started
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 展示功能的区域 -->
+    <div class="features">
+        <div class="features-grid">
+            {% if user.is_authenticated %}
+                <a href="{% url 'trainings' %}" class="feature-card">
+                    <h3>Trainings Records</h3>
+                    <p>Track trainings progress, attendance, and performance evaluations with ease</p>
+                </a>
+                <a href="{% url 'artists_info' %}" class="feature-card">
+                    <h3>Member Information</h3>
+                    <p>Comprehensive member profiles and status tracking system</p>
+                </a>
+                <a href="{% url 'activities' %}" class="feature-card">
+                    <h3>Club Activities</h3>
+                    <p>Organize and manage club events, gatherings, and performances</p>
+                </a>
+            {% else %}
+                <a href="{% url 'app_users_login' %}" class="feature-card">
+                    <h3>Trainings Records</h3>
+                    <p>Track trainings progress, attendance, and performance evaluations with ease</p>
+                </a>
+                <a href="{% url 'app_users_login' %}" class="feature-card">
+                    <h3>Member Information</h3>
+                    <p>Comprehensive member profiles and status tracking system</p>
+                </a>
+                <a href="{% url 'app_users_login' %}" class="feature-card">
+                    <h3>Club Activities</h3>
+                    <p>Organize and manage club events, gatherings, and performances</p>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+{% endblock %}

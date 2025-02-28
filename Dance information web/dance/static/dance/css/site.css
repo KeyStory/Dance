@@ -1,0 +1,191 @@
+:root {
+    /* 浅色模式变量 */
+    --background-color: #ffffff;
+    --text-color: #333;
+    --card-background: #f8f8f8;
+    /* 其他变量... */
+}
+
+[data-theme="dark"] {
+    /* 深色模式变量 */
+    --background-color: #323232;
+    --text-color: #ffffff;
+    --card-background: #2d2d2d;
+    /* 其他变量... */
+}
+
+/* 重置默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 顶部栏样式 */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 80px;
+    right: 0;
+    height: 80px;
+    background-color: #3A414A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 100;
+    border-bottom: 1px solid #2D3239;
+}
+
+.top-bar-right {
+    display: flex;
+    align-items: center;
+}
+
+.web-name {
+    padding-left: 20px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    align-items: start;
+}
+
+.web-name:hover {
+    color: #c7c7c7;
+}
+
+.logout-btn {
+    padding: 0.5rem 1rem;
+    color: #6c9ce0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.logout-btn:hover {
+    color: #c6cbd2;
+}
+
+/* 整个左侧栏容器 */
+.left-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100vh;
+    background-color: #3A414A;
+    z-index: 101;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Logo 容器样式 */
+.logo-container {
+    width: 100px;
+    height: 80px;
+    background-color: #2D3239;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    padding: 10px;
+}
+
+/* 导航栏样式 */
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.nav-item {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #a0a5ab;
+    text-decoration: none;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #4A525C;
+    color: white;
+}
+
+.nav-item.active {
+    color: white;
+    border-left: 3px solid #FF8C00;
+    background-color: #4A525C;
+}
+
+.nav-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+/* 用户头像样式 */
+.user-profile {
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #FF8C00;
+}
+
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 主要内容区域样式 */
+.main-content {
+    margin-left: 80px;
+    margin-top: 60px;
+    padding: 20px;
+    flex: 1;  /* 让主内容区域占据剩余空间 */
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin-left: 100px;  /* 与左侧导航栏保持一致的边距 */
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+/* 如果内容较少，确保footer在底部 */
+.footer p {
+    margin: 0;
+    color: #666;
+}

@@ -1,0 +1,80 @@
+{% extends "dance/home_layout.html" %}
+{% block title %}
+    Sign up
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/auth.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="auth-form">
+        <h2 class="auth-title">Sign Up</h2>
+        <form id="signupForm" novalidate>
+            {% csrf_token %}
+            {% autoescape on %}
+            <div class="form-group">
+                <label for="username">Username*</label>
+                <input type="text" id="username" name="username" required>
+                <div class="error-message" id="username-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password*</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="password-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password*</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <div class="error-message" id="confirm-password-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="email-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Birthday</label>
+                <div class="date-group">
+                    <select id="year" name="year">
+                        <option value="">Year</option>
+                    </select>
+                    <select id="month" name="month">
+                        <option value="">Month</option>
+                    </select>
+                    <select id="day" name="day">
+                        <option value="">Day</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="job">Job</label>
+                <select id="job" name="job" required>
+                    <option value="">Select a job</option>
+                    <option value="director">Director</option>
+                    <option value="coach">Coach</option>
+                </select>
+            </div>
+            
+            <!-- 添加 reCAPTCHA -->
+            <div class="form-group">
+                <div class="g-recaptcha" 
+                     data-sitekey="{{ recaptcha_site_key }}"
+                     data-callback="onRecaptchaSuccess"
+                     data-expired-callback="onRecaptchaExpired">
+                </div>
+                <div class="error-message" id="recaptcha-error"></div>
+            </div>
+            
+            <button type="submit" class="auth-button">Sign Up</button>
+            {% endautoescape %}
+        </form>
+    </div>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="{% static 'dance/js/sign_up.js' %}"></script>
+{% endblock %}

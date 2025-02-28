@@ -1,0 +1,361 @@
+{% extends "dance/layout.html" %}
+{% block title %}
+    Settings
+{% endblock %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dance/css/settings.css' %}"/>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>Settings</h1>
+        <p>Manage your dance group settings</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-button active" data-tab="basic">
+            <i>⚙️</i>
+            Basic Settings
+        </button>
+        <button class="tab-button" data-tab="members">
+            <i>👥</i>
+            Members Settings
+        </button>
+        <button class="tab-button" data-tab="notifications">
+            <i>🔔</i>
+            Notification Settings
+        </button>
+        <button class="tab-button" data-tab="privacy">
+            <i>🔒</i>
+            Privacy and Security
+        </button>
+        <button class="tab-button" data-tab="appearance">
+            <i>🎨</i>
+            Appearance Settings
+        </button>
+    </div>
+
+    <div id="basic" class="tab-content active">
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Group Name</h3>
+                <p>Set your dance group display name</p>
+            </div>
+            <div class="setting-control">
+                <input type="text" class="input-field" name="groupName" placeholder="Enter Group Name">
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Automatic backup</h3>
+                <p>Automatically back up group data every day</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="autoBackup" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Multi-language support</h3>
+                <p>Enable multi-language interface support</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="multiLanguage">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div id="members" class="tab-content">
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Member Approval</h3>
+                <p>New members need to be reviewed</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="memberApproval" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Attendance Record</h3>
+                <p>Record member attendance</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="attendance">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div id="notifications" class="tab-content">
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Event Notification</h3>
+                <p>Send event-related notifications</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="eventNotifications" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>System Notification</h3>
+                <p>Send system related notifications</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="systemNotifications">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Notification method</h3>
+                <p>Choose how you want to be notified</p>
+            </div>
+            <div class="setting-control">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label>
+                        <input type="checkbox" name="notificationEmail" checked> Email Notification
+                    </label>
+                    <label>
+                        <input type="checkbox" name="notificationSMS"> SMS Notification
+                    </label>
+                    <label>
+                        <input type="checkbox" name="notificationApp" checked> In-app notifications
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacy" class="tab-content">
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Data visibility</h3>
+                <p>Control the visibility of member information</p>
+            </div>
+            <div class="setting-control">
+                <select class="input-field" name="profileVisibility">
+                    <option value="all">Visible to everyone</option>
+                    <option value="members">Visible only to members</option>
+                    <option value="staff">Visible only to staff</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Access restrictions</h3>
+                <p>Set up access control</p>
+            </div>
+            <div class="setting-control">
+                <select class="input-field" name="accessControl">
+                    <option value="public">Public access</option>
+                    <option value="private">Private access</option>
+                    <option value="invitation">Invite only</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Data Protection</h3>
+                <p>Enable Advanced Data Protection</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input type="checkbox" name="dataProtection" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div id="appearance" class="tab-content">
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Dark Mode</h3>
+                <p>Enable Dark Theme</p>
+            </div>
+            <div class="setting-control">
+                <label class="toggle-switch">
+                    <input id="themeToggle" type="checkbox" name="darkMode">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Theme Colors</h3>
+                <p>Select system theme color</p>
+            </div>
+            <div class="setting-control">
+                <input type="color" class="input-field" name="themeColor" value="#2196F3">
+            </div>
+        </div>
+
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Font size</h3>
+                <p>Adjust the interface font size</p>
+            </div>
+            <div class="setting-control">
+                <select class="input-field" name="fontSize">
+                    <option value="small">Small</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="large">Large</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <button class="save-button" id="saveSettings">Save Settings</button>
+</div>
+
+<div class="save-notification" id="saveNotification">
+    Settings saved
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    // 选项卡切换功能
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const saveButton = document.getElementById('saveSettings');
+        const saveNotification = document.getElementById('saveNotification');
+        let settings = {};
+
+        // 加载保存的设置
+        loadSettings();
+
+        // 选项卡切换
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有活动状态
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                // 添加新的活动状态
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // 监听所有输入变化
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.type === 'checkbox') {
+                    settings[input.name] = input.checked;
+                } else {
+                    settings[input.name] = input.value;
+                }
+            });
+        });
+
+        // 保存设置
+        saveButton.addEventListener('click', () => {
+            // 保存设置到localStorage
+            localStorage.setItem('danceGroupSettings', JSON.stringify(settings));
+
+            // 显示保存提示
+            saveNotification.style.display = 'block';
+            setTimeout(() => {
+                saveNotification.style.display = 'none';
+            }, 3000);
+        });
+
+        // 加载设置
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('danceGroupSettings');
+            if (savedSettings) {
+                settings = JSON.parse(savedSettings);
+                // 应用保存的设置
+                Object.entries(settings).forEach(([key, value]) => {
+                    const input = document.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        if (input.type === 'checkbox') {
+                            input.checked = value;
+                        } else {
+                            input.value = value;
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    // 深色模式切换逻辑
+    const themeToggle = document.getElementById('themeToggle');
+    
+    // 从 localStorage 中获取保存的主题
+    const savedTheme = localStorage.getItem('theme');
+    
+    // 如果有保存的主题，应用它
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+    }
+    
+    // 监听切换按钮的变化
+    themeToggle.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            console.log("1");
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            console.log("2");
+        }
+    });
+
+    // 检测系统主题偏好
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // 如果没有保存的主题，使用系统偏好
+    if (!savedTheme) {
+        if (prefersDark.matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+        }
+    }
+
+    // 监听系统主题变化
+    prefersDark.addListener((e) => {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeToggle.checked = false;
+            }
+        }
+    });
+</script>
+{% endblock %}

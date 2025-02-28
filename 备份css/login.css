@@ -1,0 +1,256 @@
+/* 认证表单共用样式 */
+.login-form {
+    max-width: 400px;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.login-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1F2937;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* 表单组样式 */
+.form-group {
+    margin-bottom: 0.75rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #4B5563;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 0.5rem;
+    background-color: #F9FAFB;
+    color: #1F2937;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* 错误信息样式 */
+.error-container {
+    min-height: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: #EF4444;
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+    line-height: 1;
+    min-height: 1rem;
+    visibility: hidden;
+    padding: 0.25rem 0;
+}
+
+.form-group.error .error-message {
+    visibility: visible;
+}
+
+.form-group.error input {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+/* 按钮样式 */
+.login-button {
+    width: 100%;
+    padding: 0.625rem;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #1D4ED8;
+}
+
+/* 链接容器样式 */
+.links-container {
+    margin-top: 1.5rem;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #E5E7EB;
+}
+
+.links-container p {
+    margin-bottom: 0.5rem;
+    color: #4B5563;
+    font-size: 0.875rem;
+}
+
+.links-container a {
+    color: #2563EB;
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    display: inline-block;
+}
+
+.links-container a:hover {
+    color: #1D4ED8;
+}
+
+.links-container a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -1px;
+    left: 0;
+    background-color: #2563EB;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.links-container a:hover::after {
+    transform: scaleX(1);
+}
+
+/* 输入框占位符样式 */
+.form-group input::placeholder {
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+/* 密码输入框容器 */
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    color: #6B7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #374151;
+}
+
+/* Remember me 复选框样式 */
+.remember-me {
+    margin: 1rem 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    color: #4B5563;
+    font-size: 0.875rem;
+}
+
+/* 输入框占位符样式 */
+.form-group input::placeholder {
+    color: #9CA3AF;
+    font-size: 0.875rem;
+}
+
+/* 输入框聚焦状态 */
+.form-group input:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* 错误状态 */
+.form-group.error input {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+/* 链接悬停效果增强 */
+.links-container a {
+    position: relative;
+    display: inline-block;
+}
+
+.links-container a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -1px;
+    left: 0;
+    background-color: #2563EB;
+    transform: scaleX(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.links-container a:hover::after {
+    transform: scaleX(1);
+}
+
+
+/* 响应式调整 */
+@media (min-height: 800px) {
+    .login-form,
+    .signup-form {
+        margin: 2rem auto;
+    }
+}
+
+@media (max-height: 600px) {
+    .login-form,
+    .signup-form {
+        margin: 0.5rem auto;
+        padding: 1rem;
+    }
+    
+    .login-title,
+    .signup-title {
+        margin-bottom: 0.75rem;
+    }
+}
